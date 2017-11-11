@@ -1,0 +1,23 @@
+{
+  "name": "next-example",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"tsc --watch\" next",
+    "build": "concurrently \"tsc --watch\" \"next build\"",
+    "start": "concurrently \"tsc --watch\" \"next start\""
+  },
+  "author": "Josh Bowden <josbow@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "next": "^4.1.4",
+    "react": "^16.1.0",
+    "react-dom": "^16.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.0.22",
+    "concurrently": "^3.5.0",
+    "typescript": "^2.6.1"
+  }
+}
