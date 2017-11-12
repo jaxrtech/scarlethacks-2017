@@ -1,5 +1,11 @@
 from googleplaces import GooglePlaces, types
+from arcadia.sentiment import run as anaylze_sentiment
 import random
+import logging
+from statistics import mean
+from functools import reduce
+
+logger = logging.getLogger(__name__)
 
 class ThingsToDo:
     def __init__(self, api_key):
@@ -42,7 +48,7 @@ class ThingsToDo:
         # creating the list of places
         results = []
         for i in types_lst:
-            #print("searching type = '{}'".format(i))
+            logger.info("searching type = '{}'".format(i))
             query_result = self.api.nearby_search(lat_lng=start, radius=estimated_radius, types=[i])
             for j in query_result.places:
                 results.append(j)
@@ -50,13 +56,29 @@ class ThingsToDo:
         #creating a list of dictionaries of specific place details
         
         facts = []
-        for _ in range(7):
-            place=results[random.randint(0, len(results)-1)]
+        places = random.sample(results, 7)
+        for place in places:
+            logging.info("place_id: {}".format(place.place_id))
             place.get_details()
-            reviews=[]
-            for i in range(len(place.details['reviews'])):
-                reviews.append(place.details["reviews"][i]['text'])
-            place.get_details()
-            facts.append({'name':place.name, 'address':place.formatted_address, 'lat_Lng':place.geo_location, 'rating':place.rating, 'photos':place.photos, 'id':place.place_id, 'phone number':place.local_phone_number, 'reviews':reviews})
+            
+            reviews = [review['text'] for review in place.details['reviews']]
+            
+            logging.info("analyzing sentiments of reviews (n = {})".format(len(reviews)))
+            sentiments = list(anaylze_sentiment(reviews))
+            logging.info("anaylzing sentiments [done]")
+            
+            overall_sentiment = mean(map(lambda x: x['compound'], sentiments))
+            
+            facts.append({
+                'name': place.name,
+                'address': place.formatted_address,
+                'lat_lng': place.geo_location,
+                'rating': place.rating,
+                'photos': place.photos,
+                'id': place.place_id,
+                'phone_number': place.local_phone_number,
+                'reviews': reviews,
+                'sentiment': overall_sentiment
+            })
         
         return facts

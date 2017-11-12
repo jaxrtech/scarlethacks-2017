@@ -6,12 +6,15 @@ Created on Sat Nov 11 22:36:53 2017
 @author: ANAND
 """
 
-import math, re, string
+import math, re, string, sys
 from itertools import product
 from inspect import getsourcefile
 from os.path import abspath, join, dirname
 
 ##Constants##
+
+MODULE_DIR = dirname(sys.modules[__name__].__file__)
+LEXICON_PATH = join(MODULE_DIR, 'sentiment_lexicon.txt')
 
 # (empirically derived mean sentiment intensity rating increase for booster words)
 B_INCR = 0.293
@@ -184,7 +187,7 @@ class SentimentIntensityAnalyzer(object):
     """
     Give a sentiment intensity score to sentences.
     """
-    def __init__(self, lexicon_file="vader_lexicon.txt"):
+    def __init__(self, lexicon_file=LEXICON_PATH):
         _this_module_file_path_ = abspath(getsourcefile(lambda:0))
         lexicon_full_filepath = join(dirname(_this_module_file_path_), lexicon_file)
         with open(lexicon_full_filepath, encoding='utf-8') as f:
@@ -435,17 +438,11 @@ class SentimentIntensityAnalyzer(object):
 
         return sentiment_dict
 
-if __name__ == '__main__':
-    # --- examples -------
-    sentences = ["Where is the thing?! Oh my god",
-                 "Josh Hauert is not funny at all and he is really nice",
-                 "This is absolutely fucking amazing and i love it so much and I can express how much i like it and i love it so much and its amazing", ]
-     
+def run(sentences):
     analyzer = SentimentIntensityAnalyzer()
 
     for sentence in sentences:
-        vs = analyzer.polarity_scores(sentence)
-        print("{:-<65} {}".format(sentence, str(vs)))
+        yield analyzer.polarity_scores(sentence)
 
 '''
     sentence = input("Enter a sentance to see if its postitive or negative: ")
