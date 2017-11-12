@@ -1,3 +1,4 @@
+from decimal import Decimal
 from flask.json import JSONEncoder
 from googleplaces import Place, Photo
 
@@ -15,6 +16,8 @@ class CustomJSONEncoder(JSONEncoder):
                 }
             elif isinstance(obj, Photo):
                 return obj.photo_reference
+            elif isinstance(obj, Decimal):
+                return float(obj)
 
             iterable = iter(obj)
         except TypeError:
