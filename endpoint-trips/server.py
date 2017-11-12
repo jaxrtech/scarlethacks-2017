@@ -2,6 +2,7 @@ import logging
 import env
 import requests_cache
 from flask import Flask, jsonify
+from flask_cors import CORS
 
 from arcadia.api import ThingsToDo
 from arcadia.util import CustomJSONEncoder
@@ -15,6 +16,7 @@ requests_cache.install_cache('.cache')
 
 app = Flask(__name__)
 app.json_encoder = CustomJSONEncoder
+cors = CORS(app, resources={r"*": {"origins": "*"}})
 
 
 @app.route('/trips')
