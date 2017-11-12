@@ -11,6 +11,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { PickerPage } from '../pages/picker/picker';
+import { TripsPage } from '../pages/trips/trips';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { PickerPage } from '../pages/picker/picker';
     HomePage,
     TabsPage,
     PickerPage,
+    TripsPage,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +35,7 @@ import { PickerPage } from '../pages/picker/picker';
     HomePage,
     TabsPage,
     PickerPage,
+    TripsPage,
   ],
   providers: [
     StatusBar,
