@@ -1,5 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { PathLocationStrategy, LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
@@ -25,7 +26,12 @@ import { TripsPage } from '../pages/trips/trips';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp, {}, {
+      links: [
+        { component: PickerPage, name: 'Home', segment: '' },
+        { component: TripsPage, name: 'Trips', segment: 'trips' }
+      ]
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -40,7 +46,8 @@ import { TripsPage } from '../pages/trips/trips';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ]
 })
 export class AppModule {}

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController, Loading } from 'ionic-angular';
 import { TripsPage } from '../trips/trips';
+import { env } from '../../env';
 
 @Component({
   selector: 'page-picker',
@@ -15,6 +16,10 @@ export class PickerPage {
   minutes = this.minumumMinutes
 
   constructor(public navCtrl: NavController, public loadingCtrl: LoadingController) {
+  }
+
+  ionViewDidLoad() {
+    document.write(`<script src="http://maps.google.com/maps/api/js?key=${env.googleApiKey}"></script>`);
   }
 
   get formattedDuration(): string {

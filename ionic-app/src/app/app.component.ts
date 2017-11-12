@@ -4,12 +4,15 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { PickerPage } from '../pages/picker/picker';
+import { env } from '../env/index';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   rootPage:any = PickerPage;
+
+  env = env;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
