@@ -30,7 +30,7 @@ export class PickerPage {
     return [hourText, minuteText].join(" ");
   }
 
-  async submit() {
+  async onSubmit() {
     console.log('onclick go');
     this.presentLoading();
     const result = await this.fetchPlaces();
