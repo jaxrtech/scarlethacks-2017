@@ -8,23 +8,25 @@
 </ion-header>
 
 <ion-content padding>
-<div id="container">
-  <div class="box" id="bluebox">
-    <h2>
-      {{ this.formattedDuration }}
-    </h2>
+  <div id="container">
+    <div class="box" id="bluebox">
+      <h2>
+        {{ this.formattedDuration }}
+      </h2>
+    </div>
   </div>
-</div>
-  <ion-range min="30" max="360" step="15" [(ngModel)]="minutes" color="primary">
-    <ion-label range-left>30 min</ion-label>
-    <ion-label range-right>6 hrs</ion-label>
-  </ion-range>
-<div id="container">
-  <div class="box" id="bluebox">
-    <p>
-      <button ion-button color="primary" menuToggle>Go!</button>
-    </p>
-  </div>
-</div>
+
+    <ion-range [min]="minimumMinutes" [max]="maximumMinutes" step="15" [(ngModel)]="minutes" color="primary">
+      <ion-label range-left>30 min</ion-label>
+      <ion-label range-right>6 hrs</ion-label>
+    </ion-range>
+
+    <div id="container">
+      <div class="box" id="bluebox">
+        <p>
+          <button (click)="submit()" ion-button color="primary" menuToggle>Go!</button>
+        </p>
+      </div>
+    </div>
 
 </ion-content>

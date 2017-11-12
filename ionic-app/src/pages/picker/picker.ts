@@ -1,14 +1,20 @@
 import { Component } from '@angular/core';
+import { NavController, LoadingController, Loading } from 'ionic-angular';
+import { TripsPage } from '../trips/trips';
 
 @Component({
   selector: 'page-picker',
   templateUrl: 'picker.html'
 })
 export class PickerPage {
+  
+  get minumumMinutes() { return 15; }
+  get maxMinutes() { return 2.5 * 60; }
 
-  minutes = 0
+  private loader: Loading;
+  minutes = this.minumumMinutes
 
-  constructor() {
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController) {
   }
 
   get formattedDuration(): string {
@@ -23,4 +29,33 @@ export class PickerPage {
 
     return [hourText, minuteText].join(" ");
   }
+
+  async submit() {
+    console.log('onclick go');
+    this.presentLoading();
+    const result = await this.fetchPlaces();
+    this.dismissLoading();
+    this.navCtrl.push(TripsPage, result);
+  }
+
+  presentLoading() {
+    this.loader = this.loadingCtrl.create({
+      content: "Finding your next trip...",
+      duration: 3000
+    });
+    this.loader.present();
+  }
+
+  dismissLoading() {
+    this.loader.dismiss();
+  }
+
+  async fetchPlaces() {
+    await delay(2500);
+    return {};
+  }
+}
+
+function delay(millis: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, millis))
 }
