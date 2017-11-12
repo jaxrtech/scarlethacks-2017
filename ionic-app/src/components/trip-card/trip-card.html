@@ -1,0 +1,23 @@
+<ion-card class="adv-map">
+  <div style="position: relative">
+    <img class="trip-card-img" [src]="img">
+
+    <ion-fab right top>
+      <button ion-fab color="danger" class="fab-map">
+        <ion-icon name="pin"></ion-icon>
+      </button>
+    </ion-fab>
+  </div>
+
+  <trip-event-card *ngFor="let event of model.events" [model]="event" ></trip-event-card>
+
+  <ion-item actions>
+    <span ion-text item-start class="item-bold">{{ model.formattedDuration }}</span>
+    <span ion-text item-start color="subtle">(4.8 mi)</span>
+    <button ion-button color="danger" clear item-end icon-start>
+      <ion-icon name='navigate'></ion-icon>
+      Start
+    </button>
+  </ion-item>
+
+</ion-card>

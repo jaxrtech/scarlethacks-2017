@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController, Loading } from 'ionic-angular';
 import { TripsPage } from '../trips/trips';
 import { env } from '../../env';
+import { TripsProvider } from '../../providers/trips/trips';
 
 @Component({
   selector: 'page-picker',
@@ -15,7 +16,10 @@ export class PickerPage {
   private loader: Loading;
   minutes = this.minumumMinutes
 
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController) {
+  constructor(
+    public navCtrl: NavController,
+    public loadingCtrl: LoadingController,
+    public api: TripsProvider) {
   }
 
   ionViewDidLoad() {
@@ -23,6 +27,11 @@ export class PickerPage {
   }
 
   get formattedDuration(): string {
+    // HACK:
+    if (this.minutes == 0) {
+      return "15 minutes";
+    }
+
     const hours = Math.floor(this.minutes / 60);
     const minutes = this.minutes % 60;
     
@@ -40,7 +49,7 @@ export class PickerPage {
     this.presentLoading();
     const result = await this.fetchPlaces();
     this.dismissLoading();
-    this.navCtrl.push(TripsPage, result);
+    this.navCtrl.push(TripsPage, { model: result});
   }
 
   presentLoading() {
@@ -56,8 +65,7 @@ export class PickerPage {
   }
 
   async fetchPlaces() {
-    await delay(2500);
-    return {};
+    return await this.api.get();
   }
 }
 

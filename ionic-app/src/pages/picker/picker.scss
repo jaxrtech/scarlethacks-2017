@@ -1,13 +1,25 @@
 #container {
-    display: flex;           /* establish flex container */
-    flex-direction: column;  /* make main axis vertical */
-    justify-content: center; /* center items vertically, in this case */
-    align-items: center;     /* center items horizontally, in this case */
-    height: 300px;
+    display: flex;
+    flex-direction: row;
+    // justify-content: center;
+    // align-items: center;
+    height: 100%;
+}
+
+.slider {
+    width: 90vw;
 }
 
 .box {
-    width: 300px;
-    margin: 5px;
     text-align: center;     /* will center text in <p>, which is not a flex item */
+}
+
+.call-to-action {
+    margin-bottom: 3em;
+}
+
+.go-button {
+    margin-top: 2em;
+    padding-left: 4em;
+    padding-right: 4em;
 }

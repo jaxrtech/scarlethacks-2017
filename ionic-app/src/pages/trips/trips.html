@@ -9,6 +9,11 @@
 
 <ion-content class="cards-bg">
 
+  <div>
+    <trip-card *ngFor="let trip of model" [model]="trip"></trip-card>
+  </div>
+
+  <!--
   <ion-card class="adv-map">
     <div style="position: relative">
       <img src="assets/img/advance-card-map-madison.png">
@@ -42,9 +47,6 @@
   <ion-card class="adv-map">
     <div style="position: relative">
       <img src="assets/img/advance-card-map-mario.png">
-      
-      <!-- TODO -->
-      <div #map id="map" style="max-width:100%;"></div> -->
 
       <ion-fab right top>
         <button ion-fab color="danger" class="fab-map">
@@ -101,5 +103,5 @@
       </button>
     </ion-item>
 
-  </ion-card>
+  </ion-card> -->
 </ion-content>

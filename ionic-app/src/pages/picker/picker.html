@@ -3,30 +3,30 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title style="text-align:center">Arcadia</ion-title>
+    <ion-title style="text-align:center">Odyssey</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <div id="container">
     <div class="box" id="bluebox">
-      <h2>
-        {{ this.formattedDuration }}
-      </h2>
-    </div>
-  </div>
+      <h1 class="call-to-action">Find your next great destination...</h1>
 
-    <ion-range [min]="minimumMinutes" [max]="maximumMinutes" step="15" [(ngModel)]="minutes" color="primary">
-      <ion-label range-left>30 min</ion-label>
-      <ion-label range-right>6 hrs</ion-label>
+      <h2>
+        I want to spend {{ this.formattedDuration }}
+      </h2>
+
+    <ion-range class="slider" [min]="minimumMinutes" [max]="maximumMinutes" step="15" [(ngModel)]="minutes" color="primary">
+      <ion-label range-left>15 min</ion-label>
+      <ion-label range-right>1 hr 40min</ion-label>
     </ion-range>
 
-    <div id="container">
-      <div class="box" id="bluebox">
-        <p>
-          <button (click)="onSubmit()" ion-button color="primary" menuToggle>Go!</button>
-        </p>
-      </div>
-    </div>
+    <button class="go-button" (click)="onSubmit()" ion-button color="primary" menuToggle>Go!</button>
 
+    <ion-item></ion-item>
+    <h3>My Coupons</h3>
+    <img src="https://static.notion-static.com/2ae171fa48b843e7b0e6c7e8d6f802ed/Untitled" />
+    <img src="https://static.notion-static.com/3b997c8a932c4178b467f27653ba9230/Untitled" />
+    </div>
+  </div>
 </ion-content>
