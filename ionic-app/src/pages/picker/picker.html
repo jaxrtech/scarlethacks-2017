@@ -3,28 +3,28 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Arcadia</ion-title>
+    <ion-title style="text-align:center">Arcadia</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Welcome to your first Ionic app!</h3>
-
-  <p>
-    This starter project is our way of helping you get a functional app running in record time.
-  </p>
-  <p>
-    Follow along on the tutorial section of the Ionic docs!
-  </p>
-
-  <h2>{{ this.formattedDuration }}</h2>
-
+<div id="container">
+  <div class="box" id="bluebox">
+    <h2>
+      {{ this.formattedDuration }}
+    </h2>
+  </div>
+</div>
   <ion-range min="30" max="360" step="15" [(ngModel)]="minutes" color="primary">
     <ion-label range-left>30 min</ion-label>
     <ion-label range-right>6 hrs</ion-label>
   </ion-range>
+<div id="container">
+  <div class="box" id="bluebox">
+    <p>
+      <button ion-button color="primary" menuToggle>Go!</button>
+    </p>
+  </div>
+</div>
 
-  <p>
-    <button ion-button color="primary" menuToggle>Go!</button>
-  </p>
 </ion-content>
