@@ -1,4 +1,4 @@
-from googleplaces import GooglePlaces, types
+from googleplaces import GooglePlaces, types, lang
 
 
 class ThingsToDo:
@@ -27,7 +27,7 @@ class ThingsToDo:
             if category == self.place_categories[i]:
                 types_lst = self.place_types[i]
 
-    def findPlace(self, time=60, start='Chicago', category='Food'):
+    def findPlace(self, time=60, start={'Chicago'}, category='Food'):
         # time(int in min), start(dict containing {'lat': , 'lng': }starting Location), category(str type of place)
         # Finding the type of place to search for
         for i in range(len(self.place_categories)):
@@ -38,12 +38,18 @@ class ThingsToDo:
         estimated_radius = self.findRadius(time)
 
         # creating the list of places
-        result = []
+        results = []
         for i in types_lst:
+            print("searching type = '{}'".format(i))
             query_result = self.api.nearby_search(location=start,
                                                   radius=estimated_radius,
                                                   types=[i])
             for j in query_result.places:
-                result.append(j)
+                results.append(j)
 
-        return result
+        # creating a dictionary of reviews
+        # reviews = []
+        # for place in results:
+        #     place.get_details()
+
+        return results

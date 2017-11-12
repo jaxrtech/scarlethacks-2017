@@ -1,22 +1,22 @@
+import env
+import requests_cache
 from flask import Flask, jsonify
 
-import env
 from arcadia.api import ThingsToDo
+from arcadia.util import CustomJSONEncoder
+
+requests_cache.install_cache('.cache')
 
 app = Flask(__name__)
-
-
-def serialize_place(place):
-    return {'name': place.name, 'lat': place.lat, 'lng': place.lng}
+app.json_encoder = CustomJSONEncoder
 
 
 @app.route('/')
-def hello_world():
+def get_places():
     todo = ThingsToDo(env.GOOGLE_API_KEY)
     places = todo.findPlace(time=60, start='Chicago', category='Food')
-    result = list(map(serialize_place, places))
-    return jsonify(result)
+    return jsonify(places)
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8080)
+    app.run(debug=True, host='127.0.0.1', port=8080)
