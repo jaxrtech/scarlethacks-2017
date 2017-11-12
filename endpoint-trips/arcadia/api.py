@@ -20,14 +20,6 @@ class ThingsToDo:
             4:[types.TYPE_BAR, types.TYPE_NIGHT_CLUB, types.TYPE_CASINO]}
         self.times = {0: 45, 1:90, 2:60, 3:40, 4:150}
 
-    def findRadius(self, time):
-        if time < self.event_time:
-            return False
-        travel_time = (time - self.event_time) / 2
-        speed = 938
-        estimated_radius = travel_time * speed
-        return estimated_radius
-
     def findPlace(self, time=60, start=None, category='Food'):
         #time(int in min), start(dict containing {'lat': , 'lng': }starting Location), category(str type of place)
         #returns a list of dictionaries [{'Name':place.name, 'Address':place.formatted_address, 'Lat_Lng':place.geo_location, 'Rating':place.rating, 'Photos':place.photos, 'ID':place.place_id}]
@@ -40,10 +32,15 @@ class ThingsToDo:
         for i in range(len(self.place_categories)):
             if category == self.place_categories[i]:
                 types_lst = self.place_types[i]
-                
+                self.event_time=self.times[i]
 
         # finding the range of place around the person
-        estimated_radius = self.findRadius(time)
+        if time < self.event_time:
+            return False
+        travel_time = (time - self.event_time) / 2
+        speed = 938
+        estimated_radius = travel_time * speed
+        
 
         # creating the list of places
         results = []
@@ -68,7 +65,7 @@ class ThingsToDo:
             logging.info("anaylzing sentiments [done]")
             
             overall_sentiment = mean(map(lambda x: x['compound'], sentiments))
-            
+                        
             facts.append({
                 'name': place.name,
                 'address': place.formatted_address,
@@ -78,7 +75,8 @@ class ThingsToDo:
                 'id': place.place_id,
                 'phone_number': place.local_phone_number,
                 'reviews': reviews,
-                'sentiment': overall_sentiment
+                'sentiment': overall_sentiment,
+                'duration':self.event_time
             })
         
         return facts

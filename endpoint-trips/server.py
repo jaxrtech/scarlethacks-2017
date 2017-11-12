@@ -21,7 +21,7 @@ app.json_encoder = CustomJSONEncoder
 def get_places():
     app.logger.info('get_places()')
     todo = ThingsToDo(env.GOOGLE_API_KEY)
-    places = todo.findPlace(time=60, start={'lat':41.8781, 'lng':-87.6298}, category='Adult')
+    places = todo.findPlace(time=60, start={'lat':41.8781, 'lng':-87.6298}, category='Food')
     return jsonify(places)
 
 
