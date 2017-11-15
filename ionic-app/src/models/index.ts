@@ -16,6 +16,7 @@ export class TripEvent extends TripEventProps {
 class TripProps {
     events: TripEvent[];
     duration: number;
+    distance: string;
 }
 
 export class Trip extends TripProps {
@@ -24,7 +25,7 @@ export class Trip extends TripProps {
         Object.assign(this, props);
     }
 
-    get formattedDuration(): string {
+    formatDuration(): string {
         const hours = Math.floor(this.duration / 60);
         const minutes = this.duration % 60;
         

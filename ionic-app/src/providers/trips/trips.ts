@@ -13,19 +13,22 @@ export class TripsProvider {
     console.log('Hello TripsProvider Provider');
   }
 
-  async get() {
+  async get(duration: number) {
     let result: any;
-    let didRetry = false;
+    let retires = 0;
     do {
-      if (didRetry) {
-        await delay(1000);
+      if (retires > 5) {
+        throw Error('unable to fetch trips after 5 tries')
+      }
+      if (retires > 0) {
+        await delay(2000);
       }
       try {
         result = await this.http.get(this.rootUrl + '/trips').toPromise()
         break;
       } catch (err) {
         console.error('failed to load trips', err)
-        didRetry = true;
+        retires += 1;
       }
     } while (true);
 
@@ -33,7 +36,8 @@ export class TripsProvider {
     
     return json.map(x =>
       new Trip({
-        duration: x.duration,
+        distance: (Math.floor(35 + 7 * Math.random()) * 0.1).toString().substring(0, 3),
+        duration: (duration - 10) + Math.floor(7 * Math.random()),
         events: [
           new TripEvent({
             name: x.name,

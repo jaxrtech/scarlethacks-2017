@@ -12,8 +12,8 @@
   <trip-event-card *ngFor="let event of model.events" [model]="event" ></trip-event-card>
 
   <ion-item actions>
-    <span ion-text item-start class="item-bold">{{ model.formattedDuration }}</span>
-    <span ion-text item-start color="subtle">(4.8 mi)</span>
+    <span ion-text item-start class="item-bold">~{{ this.model.formatDuration() }}</span>
+    <span ion-text item-start color="subtle">({{ this.model.distance }} mi)</span>
     <button ion-button color="danger" clear item-end icon-start>
       <ion-icon name='navigate'></ion-icon>
       Start

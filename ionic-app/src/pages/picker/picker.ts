@@ -3,6 +3,7 @@ import { NavController, LoadingController, Loading } from 'ionic-angular';
 import { TripsPage } from '../trips/trips';
 import { env } from '../../env';
 import { TripsProvider } from '../../providers/trips/trips';
+import { TripCardComponent } from '../../components/trip-card/trip-card';
 
 @Component({
   selector: 'page-picker',
@@ -14,7 +15,7 @@ export class PickerPage {
   get maxMinutes() { return 2.5 * 60; }
 
   private loader: Loading;
-  minutes = this.minumumMinutes
+  minutes: number;
 
   constructor(
     public navCtrl: NavController,
@@ -23,7 +24,11 @@ export class PickerPage {
   }
 
   ionViewDidLoad() {
-    document.write(`<script src="http://maps.google.com/maps/api/js?key=${env.googleApiKey}"></script>`);
+    this.minutes = 15;
+
+    // HACK
+    const used = TripCardComponent.used;
+    used.splice(0, used.length)
   }
 
   get formattedDuration(): string {
@@ -55,7 +60,7 @@ export class PickerPage {
   presentLoading() {
     this.loader = this.loadingCtrl.create({
       content: "Finding your next trip...",
-      duration: 3000
+      duration: 10000
     });
     this.loader.present();
   }
@@ -65,7 +70,7 @@ export class PickerPage {
   }
 
   async fetchPlaces() {
-    return await this.api.get();
+    return await this.api.get(this.minutes);
   }
 }
 
